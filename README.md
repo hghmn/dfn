@@ -1,5 +1,8 @@
 # ultra-minimal-amd
-Extremely basic implementation of a JavaScript AMD loader
+
+Extremely basic implementation of a JavaScript AMD type loader
+
+Does not yet fully implement the [AMD API as laid out here.](https://github.com/amdjs/amdjs-api)
 
 ---
 
