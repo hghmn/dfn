@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>Basic Test | Ultra Minimal AMD loader</title>
+</head>
+<body>
+	<h1>Basic Test</h1>
+
+	<script type="text/javascript" src="../src/amd.js"></script>
+	<script type="text/javascript">
+	  // define dependencies
+	  define('dep_1', function (pass, fail) {
+      setTimeout(function(){
+        pass('dep_1',100);
+      },1000);
+    });
+
+    define('dep_2', function (pass, fail) {
+      pass('dep_2', 20);
+    });
+    
+    define('dep_3', function (pass, fail) {
+      fail('dep_3')
+    })
+    
+    // load functions
+    require(
+      ['dep_1'],
+      function (dep_1) {
+        console.log('dep_1 should be 100: ' + dep_1);
+      }
+    );
+    
+    require(
+      ['dep_1', 'dep_2'],
+      function (dep_1, dep_2) {
+        console.log('dep_1 should be 100: ' + dep_1);
+        console.log('dep_2 should be 20: ' + dep_2);
+      }
+    );
+    
+    // test a function with a failed dependency
+    require(
+      ['dep_3','dep_2'],
+      function (dep_2, dep_3) {
+        console.log('dep_3 shouldn't load: ' + dep_3);
+        console.log('dep_2 shouldn't load if previous dependency failed: ' + dep_2); 
+      }
+    );
+	</script>
+</body>
+</html>
