@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DFN</title>
+</head>
+<body>
+    <pre id="output"></pre>
+
+    <!-- Get It -->
+    <script src="../dfn.js"></script>
+    <script>
+        // Define dependencies
+        // -------------------
+        dfn('boolTrue', function() {
+            return true;
+        });
+
+        dfn('int20', function() {
+            return 20;
+        });
+
+        dfn('strHello', function() {
+            return "Hello World";
+        });
+        
+        write("**********\nDeps 1 Test\n");
+        var deps1 = ['boolTrue', 'int20', 'strHello'];
+        rqr(deps1, function(/* arguments */) {
+            var definitions = arguments;
+            deps1.forEach(function(def, index) {
+                write(def + ": " + definitions[index]);
+            });
+        });
+
+
+        // Even do some crazy chaining
+        // ---------------------------
+        dfn('boolFalse', function() {
+            return false;
+        })('int123', function() {
+            return 123;
+        })('strGoodbye', function() {
+            return "Goodbye Moon";
+        });
+        
+        write("\n**********\nDeps 2 Test\n");
+        var deps2 = ['boolFalse', 'int123', 'strGoodbye'];
+        rqr(deps2, function(/* arguments */) {
+            var definitions = arguments;
+            deps2.forEach(function(def, index) {
+                write(def + ": " + definitions[index]);
+            });
+        });
+
+
+        // Utility
+        // -------
+        function write(input) {
+            var $output = document.getElementById("output");
+            $output.textContent += input + "\n";
+        }
+    </script>
+</body>
+</html>
